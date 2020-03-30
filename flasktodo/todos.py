@@ -22,13 +22,12 @@ def index():
             error = 'Task is required.'
 
         if error is None:
+            # insets the user input into the database
             cur.execute(
                 'INSERT INTO todos (description, completed,created_at) VALUES (%s,%s,%s)',
                 (task, False, datetime.datetime.now())
             )
             g.db.commit()
-
-        flash(error)
 
     cur.execute('SELECT * FROM todos')
     todos = cur.fetchall()
