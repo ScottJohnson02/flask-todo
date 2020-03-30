@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>A simple to-do application</h1>
+<h1>A simple to-do application</h1>
 
-  <ul>
-    {% for todo in todos %}
-      <li class="{{ "completed" if todo['completed'] }}">
-        {{ todo['description'] }}
-      </li>
-    {% endfor %}
-  </ul>
+<ul>
+  {% for todo in todos %}
+  <li class="{{ "completed" if todo['completed'] }}">
+    {{ todo['description'] }}
+  </li>
+  {% endfor %}
+</ul>
+<form method="post">
+  <label for="task">New Task</label>
+  <input name="task" id="task" required>
+  <input type="submit" value="Add">
+</form>
 {% endblock %}
