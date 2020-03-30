@@ -1,5 +1,6 @@
 import pytest
 
+
 def test_todo_list(client):
     # View the home page and check to see the header and a to-do item
     response = client.get('/')
@@ -10,3 +11,10 @@ def test_todo_list(client):
     assert response.data.count(b'<li class="">') == 2
     assert response.data.count(b'<li class="completed">') == 1
 
+
+def test_new_todo(client,):
+    response = client.post(
+        '/',
+        data={'task': "tie shoes"}
+    )
+    assert response.data.count(b'<li class="">') == 3
