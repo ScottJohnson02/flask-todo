@@ -34,3 +34,23 @@ def index():
     cur.close()
 
     return render_template("index.html", todos=todos)
+
+
+@bp.route("/<int:id>/done", methods=('GET', 'POST'))
+def done(id):
+    """Sets the task to completed"""
+    cur = db.get_db().cursor()
+
+    # update the task and set it to complete
+    cur.execute(
+        'UPDATE todos SET completed = True'
+        ' WHERE id= %s ',
+        (id,)
+    )
+    g.db.commit()
+
+    cur.execute('SELECT * FROM todos')
+    todos = cur.fetchall()
+    cur.close()
+
+    return redirect(url_for('todos.index'))

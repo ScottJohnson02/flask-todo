@@ -1,4 +1,8 @@
 import pytest
+import psycopg2
+
+
+from flasktodo.db import get_db
 
 
 def test_todo_list(client):
@@ -18,3 +22,10 @@ def test_new_todo(client,):
         data={'task': "tie shoes"}
     )
     assert response.data.count(b'<li class="">') == 3
+
+
+def test_complete_todo(client,):
+    response = client.get(
+        '/1/done',
+    )
+    assert response.data == 1
