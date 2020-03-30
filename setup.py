@@ -7,7 +7,7 @@ with open("README.md", "r") as f:
 setuptools.setup(
     name="flasktodo",
     version="0.0.1",
-    author="Scott Johnson",
+    author="Scott Johnson, Alebachew Melaku",
     author_email="scottyjohnson002@gmail.com",
     url="https://github.com/ScottJohnson02/flask-todo",
     description="A simple to-do application",
