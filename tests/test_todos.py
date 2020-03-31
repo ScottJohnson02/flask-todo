@@ -22,7 +22,8 @@ def test_new_todo(client,):
         data={'task': "tie shoes"}
     )
     assert response.data.count(b'<li class="">') == 3
-<<<<<<< HEAD
+
+
 def test_completed(client):
     # View the home page and check to see the header and a to-do item
     response = client.get('/completed')
@@ -30,14 +31,15 @@ def test_completed(client):
 
     # Mock data should show three to-do items, one of which is complete
     assert response.data.count(b'<li class="completed">') == 1
+
+
 def test_uncompleted(client):
     # View the home page and check to see the header and a to-do item
     response = client.get('/uncompleted')
-    assert b'clean room'  in response.data
+    assert b'clean room' in response.data
 
     # Mock data should show three to-do items, one of which is complete
     assert response.data.count(b'<li class="completed">') == 0
-=======
 
 
 def test_complete_todo(client,):
@@ -50,4 +52,3 @@ def test_complete_todo(client,):
 
     assert response.data.count(b'<li class="">') == 1
     assert response.data.count(b'<li class="completed">') == 2
->>>>>>> markoff
