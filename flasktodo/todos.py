@@ -126,6 +126,11 @@ def delete(id):
 def edit(id):
     """Edits the description of the task"""
     cur = db.get_db().cursor()
+    cur.execute(
+        'SELECT * from todos WHERE id=%s',
+        (id,)
+    )
+    todo = cur.fetchone()
     if request.method == "POST":
         new = request.form['new']
 
@@ -143,4 +148,4 @@ def edit(id):
             cur.close()
 
         return redirect(url_for('todos.index'))
-    return render_template("edit.html")
+    return render_template("edit.html", todo=todo)
