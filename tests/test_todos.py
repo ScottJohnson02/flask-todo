@@ -52,3 +52,12 @@ def test_complete_todo(client,):
 
     assert response.data.count(b'<li class="">') == 1
     assert response.data.count(b'<li class="completed">') == 2
+
+
+def test_edit(client):
+    client.post(
+        '/1/edit',
+        data={'new': "tie shoes"}
+    )
+    response = client.get('/')
+    assert b'tie shoes' in response.data
