@@ -25,20 +25,20 @@ def test_new_todo(client,):
 
 
 def test_completed(client):
-    # View the home page and check to see the header and a to-do item
+    # View the home page and check to see the header and a completed items
     response = client.get('/completed')
     assert b'clean room' not in response.data
 
-    # Mock data should show three to-do items, one of which is complete
+    # Mock data should show completed items
     assert response.data.count(b'<li class="completed">') == 1
 
 
 def test_uncompleted(client):
-    # View the home page and check to see the header and a to-do item
+    # View the home page and check to see the header uncompleted items
     response = client.get('/uncompleted')
     assert b'clean room' in response.data
 
-    # Mock data should show three to-do items, one of which is complete
+    # Mock data should show uncompleted items
     assert response.data.count(b'<li class="completed">') == 0
 
 
