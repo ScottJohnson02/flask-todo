@@ -43,15 +43,18 @@ def test_uncompleted(client):
 
 
 def test_marked(client,):
+    # goes to the page where the user marks a task complete
     client.post(
         '/1/done',
     )
     response = client.get(
         '/',
     )
-
+    # checks the number of completed tasks
     assert response.data.count(b'<li class="">') == 1
     assert response.data.count(b'<li class="completed">') == 2
+
+
 def test_delete(client,):
     client.post(
         '/1/delete',
@@ -61,4 +64,15 @@ def test_delete(client,):
     )
 
     assert response.data.count(b'<li class="">') == 1
-    assert response.data.count(b'<li class="completed">') == 1
+
+
+def test_edit(client):
+    # goes to the update tasks page
+    client.post(
+        '/1/edit',
+        data={'new': "tie shoes"}
+    )
+    response = client.get('/')
+    # checks that the edit went through and did not add a task
+    assert b'tie shoes' in response.data
+    assert response.data.count(b'<li class="">') == 2
