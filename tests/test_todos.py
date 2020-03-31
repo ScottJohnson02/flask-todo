@@ -25,7 +25,12 @@ def test_new_todo(client,):
 
 
 def test_complete_todo(client,):
-    response = client.get(
+    client.get(
         '/1/done',
     )
-    assert response.data == 1
+    response = client.get(
+        '/',
+    )
+
+    assert response.data.count(b'<li class="">') == 1
+    assert response.data.count(b'<li class="completed">') == 2

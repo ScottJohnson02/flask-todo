@@ -20,6 +20,7 @@ def index():
 
         if not task:
             error = 'Task is required.'
+            print('gdrgd')
 
         if error is None:
             # insets the user input into the database
@@ -36,7 +37,7 @@ def index():
     return render_template("index.html", todos=todos)
 
 
-@bp.route("/<int:id>/done", methods=('GET', 'POST'))
+@bp.route("/<int:id>/done", methods=('POST',))
 def done(id):
     """Sets the task to completed"""
     cur = db.get_db().cursor()
