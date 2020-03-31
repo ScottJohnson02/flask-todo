@@ -34,3 +34,27 @@ def index():
     cur.close()
 
     return render_template("index.html", todos=todos)
+@bp.route("/completed", methods=['GET', 'POST'])
+def completed():
+
+
+    cur = db.get_db().cursor()
+
+    cur.execute('SELECT * FROM todos WHERE completed = True')
+    todos = cur.fetchall()
+    cur.close()
+
+    return render_template("index.html", todos=todos)
+
+
+@bp.route("/uncompleted", methods=['GET'])
+def uncompleted():
+
+
+    cur = db.get_db().cursor()
+
+    cur.execute('SELECT * FROM todos WHERE completed = False')
+    todos = cur.fetchall()
+    cur.close()
+
+    return render_template("index.html", todos=todos)
