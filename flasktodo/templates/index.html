@@ -14,9 +14,6 @@
     <form class="done" action="{{ url_for('todos.done', id=todo['id']) }}" method="post">
       <button type="Submit" name="done" value='Done'>Done</button>
     </form>
-    <form class="delete" action="{{ url_for('todos.delete', id=todo['id']) }}" method="post">
-      <button type="Submit" name="delete" value='Delete'>Delete</button>
-    </form>
   </li>
   {% endfor %}
 </ul>

@@ -79,15 +79,3 @@ def done(id):
     cur.close()
 
     return redirect(url_for('todos.index'))
-@bp.route("/<int:id>/delete", methods=('POST',))
-def delete(id):
-    """Sets the task to delete"""
-    cur = db.get_db().cursor()
-
-    # delete the task
-    cur.execute(
-    'DELETE FROM todos WHERE id= %s', (id,)
-    )
-    g.db.commit()
-    cur.close()
-    return redirect(url_for('todos.index'))
