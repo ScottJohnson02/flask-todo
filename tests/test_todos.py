@@ -43,7 +43,7 @@ def test_uncompleted(client):
 
 
 def test_complete_todo(client,):
-    client.get(
+    client.post(
         '/1/done',
     )
     response = client.get(
