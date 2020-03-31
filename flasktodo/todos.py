@@ -20,6 +20,7 @@ def index():
 
         if not task:
             error = 'Task is required.'
+            print('gdrgd')
 
         if error is None:
             # insets the user input into the database
@@ -34,9 +35,10 @@ def index():
     cur.close()
 
     return render_template("index.html", todos=todos)
+
+
 @bp.route("/completed", methods=['GET', 'POST'])
 def completed():
-
 
     cur = db.get_db().cursor()
 
@@ -50,7 +52,6 @@ def completed():
 @bp.route("/uncompleted", methods=['GET'])
 def uncompleted():
 
-
     cur = db.get_db().cursor()
 
     cur.execute('SELECT * FROM todos WHERE completed = False')
@@ -58,3 +59,23 @@ def uncompleted():
     cur.close()
 
     return render_template("index.html", todos=todos)
+
+
+@bp.route("/<int:id>/done", methods=('POST',))
+def done(id):
+    """Sets the task to completed"""
+    cur = db.get_db().cursor()
+
+    # update the task and set it to complete
+    cur.execute(
+        'UPDATE todos SET completed = True'
+        ' WHERE id= %s ',
+        (id,)
+    )
+    g.db.commit()
+
+    cur.execute('SELECT * FROM todos')
+    todos = cur.fetchall()
+    cur.close()
+
+    return redirect(url_for('todos.index'))
