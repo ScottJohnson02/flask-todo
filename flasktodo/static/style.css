@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  color: #222222;
+  background-color: #6A5ACD;
   display: flex;
   flex-direction: column;
   font-family: Helvetica, Arial, sans-serif;
@@ -21,12 +21,57 @@ body {
 }
 
 li.completed {
-  color: #666666;
+  color: #111;
   text-decoration: line-through;
 }
-
+h1.header {
+  background-color: #A52A2A;
+  width: 50%;
+  color: #9ACD32;
+}
 div.filter {
+  background-color: #A52A2A;
+  width: 50%;
   display: flex;
   list-style: none;
+  justify-content: space-between;
+
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+ button {
+  background-color: black;
+}
+form.new {
+  position: relative;
+  width: 20%;
+  margin-top: 1rem;
+  left: 30%;
+  background-color: #9ACD32;
+
+}
+form.new input {
+  color: green;
+  font-size: 14px;
+}
+div.update {
+  display: flex;
   justify-content: space-around;
+  width: 20%;
+}
+
+
+form.done button{
+  color: green;
+
+}
+form.delete button {
+  color: red;
+
+}
+form.edit button {
+color: yellow;
+
 }
