@@ -1,32 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>A simple to-do application</h1>
+<h1 class="header">A simple to-do application</h1>
 <div class="filter">
-  <li><a href="{{ url_for('todos.completed') }}">Completed</a></li>
-  <li><a href="{{ url_for('todos.uncompleted') }}">Uncompleted</a></li>
-  <li><a href="/">All</a></li>
+  <li><a href="{{ url_for('todos.completed') }}">Completed Tasks</a></li>
+  <li><a href="{{ url_for('todos.uncompleted') }}">Uncompleted Tasks</a></li>
+  <li><a href="/">All Tasks</a></li>
 </div>
-<ul>
-  {% for todo in todos %}
-  <li class="{{ "completed" if todo['completed'] }}">
-    {{ todo['description'] }}
-    <form class="done" action="{{ url_for('todos.done', id=todo['id']) }}" method="post">
-      <button type="Submit" name="done" value='Done'>Done</button>
-    </form>
-    <form class="delete" action="{{ url_for('todos.delete', id=todo['id']) }}" method="post">
-      <button type="Submit" name="delete" value='Delete'>Delete</button>
-    </form>
-    <form class="" action="{{ url_for('todos.edit', id=todo['id']) }}" method="get">
-      <button type="Submit" name="edit">Edit</button>
-
-    </form>
-  </li>
-  {% endfor %}
-</ul>
-<form method="post">
+<form class="new" method="post">
   <label for="task">New Task</label>
   <input name="task" id="task" required>
   <input type="submit" value="Add">
 </form>
+<ul>
+  {% for todo in todos %}
+  <li class="{{ "completed" if todo['completed'] }}">
+    {{ todo['description'] }}
+    <div class="update">
+      <form class="done" action="{{ url_for('todos.done', id=todo['id']) }}" method="post">
+        <button type="Submit" name="done" value='Done'>Done</button>
+      </form>
+      <form class="delete" action="{{ url_for('todos.delete', id=todo['id']) }}" method="post">
+        <button type="Submit" name="delete" value='Delete'>Delete</button>
+      </form>
+      <form class="edit" action="{{ url_for('todos.edit', id=todo['id']) }}" method="get">
+        <button type="Submit" name="edit">Edit</button>
+      </form>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}
