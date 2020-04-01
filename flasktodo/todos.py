@@ -5,6 +5,8 @@ from flask import (
 from . import db
 import datetime
 
+from flasktodo.auth import login_required
+
 
 bp = Blueprint("todos", __name__)
 
@@ -24,12 +26,17 @@ def index():
         if error is None:
             # insets the user input into the database
             cur.execute(
-                'INSERT INTO todos (description, completed,created_at) VALUES (%s,%s,%s)',
-                (task, False, datetime.datetime.now())
+                'INSERT INTO todos (description, completed,created_at,owner_id) VALUES (%s,%s,%s,%s)',
+                (task, False, datetime.datetime.now(), g.user['id'])
             )
             g.db.commit()
 
-    cur.execute('SELECT * FROM todos')
+    print(g.user)
+    if g.user == None:
+        return redirect(url_for('auth.register'))
+
+    cur.execute('SELECT * FROM todos WHERE owner_id = %s',
+                (g.user['id'],))
     todos = cur.fetchall()
     cur.close()
 
@@ -88,6 +95,7 @@ def uncompleted():
     return render_template("index.html", todos=todos)
 
 
+@login_required
 @bp.route("/<int:id>/done", methods=('POST',))
 def done(id):
     """Sets the task to completed"""
@@ -108,6 +116,7 @@ def done(id):
     return redirect(url_for('todos.index'))
 
 
+@login_required
 @bp.route("/<int:id>/delete", methods=('POST',))
 def delete(id):
     """Sets the task to delete"""
@@ -122,6 +131,7 @@ def delete(id):
     return redirect(url_for('todos.index'))
 
 
+@login_required
 @bp.route("/<int:id>/edit", methods=('GET', 'POST',))
 def edit(id):
     """Edits the description of the task"""
