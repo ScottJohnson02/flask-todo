@@ -62,7 +62,8 @@ def completed():
             )
             g.db.commit()
 
-    cur.execute('SELECT * FROM todos WHERE completed = True')
+    cur.execute(
+        'SELECT * FROM todos WHERE completed = True and owner_id = %s', (g.user['id'],))
     todos = cur.fetchall()
     cur.close()
 
@@ -88,7 +89,8 @@ def uncompleted():
             )
             g.db.commit()
 
-    cur.execute('SELECT * FROM todos WHERE completed = False')
+    cur.execute('SELECT * FROM todos WHERE completed = False and owner_id = %s',
+                (g.user['id'],))
     todos = cur.fetchall()
     cur.close()
 
